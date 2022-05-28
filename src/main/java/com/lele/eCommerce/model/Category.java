@@ -11,12 +11,12 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "category_name")
+    @Column(name = "categoryName")
     private @NotBlank  String categoryName;
 
     private @NotBlank String description;
 
-    @Column(name = "image url")
+    @Column(name = "imageUrl")
     private @NotBlank String imageUrl;
 
     public Integer getId() {
