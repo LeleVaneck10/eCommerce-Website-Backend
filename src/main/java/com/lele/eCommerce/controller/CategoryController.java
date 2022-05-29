@@ -28,7 +28,8 @@ public class CategoryController {
 
     @PostMapping("/update/{categoryId}")
     public String updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
-        System.out.println("category id" + categoryId);
+        System.out.println("category id " + categoryId);
+        categoryService.editCategory(categoryId, category);
         return "testing";
     }
 }
