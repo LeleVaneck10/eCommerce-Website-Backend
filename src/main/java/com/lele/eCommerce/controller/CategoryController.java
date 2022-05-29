@@ -25,4 +25,10 @@ public class CategoryController {
     public List<Category> listCategory() {
      return categoryService.listCategory();
     }
+
+    @PostMapping("/update/{categoryId}")
+    public String updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
+        System.out.println("category id" + categoryId);
+        return "testing";
+    }
 }
