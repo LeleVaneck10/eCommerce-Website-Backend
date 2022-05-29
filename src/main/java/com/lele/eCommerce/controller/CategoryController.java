@@ -20,7 +20,7 @@ public class CategoryController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> creatCategory(@RequestBody Category category) {
         categoryService.createCategory(category);
-        return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "a new category created"), HttpStatus.CREATED);
     }
 
     @GetMapping ("/list")
