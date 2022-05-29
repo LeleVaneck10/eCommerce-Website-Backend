@@ -25,6 +25,6 @@ public class CategoryService {
         category.setCategoryName(updateCategory.getCategoryName());
         category.setDescription(updateCategory.getDescription());
         category.setImageUrl(category.getImageUrl());
-        categoryRepo.save(category)
+        categoryRepo.save(category);
     }
 }
