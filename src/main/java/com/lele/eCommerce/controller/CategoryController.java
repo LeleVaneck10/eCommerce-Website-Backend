@@ -29,9 +29,9 @@ public class CategoryController {
     }
 
     @PostMapping("/update/{categoryId}")
-    public String updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
         System.out.println("category id " + categoryId);
         categoryService.editCategory(categoryId, category);
-        return "testing";
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "category has been updated"), HttpStatus.OK);
     }
 }
