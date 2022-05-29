@@ -1,8 +1,11 @@
 package com.lele.eCommerce.controller;
 
+import com.lele.eCommerce.common.ApiResponse;
 import com.lele.eCommerce.model.Category;
 import com.lele.eCommerce.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +18,9 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping("/create")
-    public String creatCategory(@RequestBody Category category) {
-
+    public ResponseEntity<ApiResponse> creatCategory(@RequestBody Category category) {
         categoryService.createCategory(category);
-        return "success";
+        return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
     }
 
     @GetMapping ("/list")
