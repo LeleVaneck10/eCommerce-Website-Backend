@@ -1,7 +1,10 @@
 package com.lele.eCommerce.service;
 
 import com.lele.eCommerce.dto.user.ResponseDto;
+import com.lele.eCommerce.dto.user.SignInDto;
+import com.lele.eCommerce.dto.user.SignInResponseDto;
 import com.lele.eCommerce.dto.user.SignupDto;
+import com.lele.eCommerce.exceptions.AuthenticationFailException;
 import com.lele.eCommerce.exceptions.CustomException;
 import com.lele.eCommerce.model.AuthenticationToken;
 import com.lele.eCommerce.model.User;
@@ -68,5 +71,38 @@ public class UserService {
         String hash = DatatypeConverter
                 .printHexBinary(digest).toUpperCase();
         return hash;
+    }
+
+    public SignInResponseDto signIn(SignInDto signInDto) {
+        // find user by email
+
+        User user = userRepository.findByEmail(signInDto.getEmail());
+
+        if (Objects.isNull(user)) {
+            throw new AuthenticationFailException("user is not valid");
+        }
+
+        try {
+           if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))){
+               throw new AuthenticationFailException("wrong password");
+           }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // compare the password in DB
+
+        // if password match
+
+        AuthenticationToken token = authenticationService.getToken(user);
+
+        // retrive the token
+
+        if (Objects.isNull(token)) {
+            throw new CustomException("token is not present");
+        }
+
+        return new SignInResponseDto("Sucess", token.getToken());
+        // return response
     }
 }

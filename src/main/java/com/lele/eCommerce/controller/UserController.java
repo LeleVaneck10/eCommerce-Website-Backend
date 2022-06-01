@@ -1,6 +1,8 @@
 package com.lele.eCommerce.controller;
 
 import com.lele.eCommerce.dto.user.ResponseDto;
+import com.lele.eCommerce.dto.user.SignInDto;
+import com.lele.eCommerce.dto.user.SignInResponseDto;
 import com.lele.eCommerce.dto.user.SignupDto;
 import com.lele.eCommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,9 @@ public class UserController {
 
     // signin
 
-//    @PostMapping("/signin")
-//    public SignInReponseDto signIn(@RequestBody SignInDto signInDto) {
-//        return userService.signIn(signInDto);
-//    }
+    @PostMapping("/signin")
+    public SignInResponseDto signIn(@RequestBody SignInDto signInDto){
+        return userService.signIn(signInDto);
+    }
+
 }
