@@ -16,6 +16,11 @@ public class Product {
     private @NotNull double price;
     private @NotNull String description;
 
+    //Many to one relationship
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    Category category;
 
     public String getName() {
         return name;
