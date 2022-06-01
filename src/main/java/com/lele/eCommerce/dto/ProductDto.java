@@ -4,11 +4,17 @@ import javax.validation.constraints.NotNull;
 
 public class ProductDto {
 
+    //to create the id can be optional
+    //we need it but in update
+    private Integer id;
     private @NotNull String name;
     private @NotNull String imageURL;
     private @NotNull double price;
     private @NotNull String description;
     private @NotNull Integer categoryId;
+
+    public ProductDto() {
+    }
 
     public String getName() {
         return name;
