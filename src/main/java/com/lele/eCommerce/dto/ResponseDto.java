@@ -1,4 +1,4 @@
-package com.lele.eCommerce.dto.user;
+package com.lele.eCommerce.dto;
 
 public class ResponseDto {
 

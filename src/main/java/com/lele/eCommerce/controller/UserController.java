@@ -1,6 +1,6 @@
 package com.lele.eCommerce.controller;
 
-import com.lele.eCommerce.dto.user.ResponseDto;
+import com.lele.eCommerce.dto.ResponseDto;
 import com.lele.eCommerce.dto.user.SignInDto;
 import com.lele.eCommerce.dto.user.SignInResponseDto;
 import com.lele.eCommerce.dto.user.SignupDto;

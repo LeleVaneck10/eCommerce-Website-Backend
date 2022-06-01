@@ -1,6 +1,7 @@
 package com.lele.eCommerce.service;
 
 import com.lele.eCommerce.dto.ProductDto;
+import com.lele.eCommerce.exceptions.ProductNotExistsException;
 import com.lele.eCommerce.model.Category;
 import com.lele.eCommerce.model.Product;
 import com.lele.eCommerce.repository.ProductRepository;
@@ -63,4 +64,13 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
     }
+
+    public Product findById(Integer productId) throws  ProductNotExistsException{
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotExistsException("product id is invalid: " + productId);
+        }
+        return optionalProduct.get();
+    }
 }
+
