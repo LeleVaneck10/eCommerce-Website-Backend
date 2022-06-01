@@ -7,6 +7,9 @@ import com.lele.eCommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -21,5 +24,27 @@ public class ProductService {
         product.setCategory(category);
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
+    }
+
+    public ProductDto getProductDto(Product product) {
+        ProductDto productDto = new ProductDto();
+        productDto.setDescription(product.getDescription());
+        productDto.setImageURL(product.getImageURL());
+        productDto.setName(product.getName());
+        productDto.setCategoryId(product.getCategory().getId());
+        productDto.setPrice(product.getPrice());
+      //  productDto.setId(product.getId());
+        return productDto;
+    }
+
+    public List<ProductDto> getAllProducts() {
+
+        List<Product> allProducts = productRepository.findAll();
+
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product: allProducts) {
+            productDtos.add(getProductDto(product));
+        }
+        return productDtos;
     }
 }
