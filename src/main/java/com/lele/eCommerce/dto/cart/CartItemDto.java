@@ -1,5 +1,6 @@
 package com.lele.eCommerce.dto.cart;
 
+import com.lele.eCommerce.model.Cart;
 import com.lele.eCommerce.model.Product;
 
 public class CartItemDto {
@@ -33,5 +34,11 @@ public class CartItemDto {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public CartItemDto(Cart cart) {
+        this.id = cart.getId();
+        this.quantity = cart.getQuantity();
+        this.setProduct(cart.getProduct());
     }
 }

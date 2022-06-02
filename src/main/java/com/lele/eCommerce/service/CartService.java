@@ -2,6 +2,8 @@ package com.lele.eCommerce.service;
 
 import com.lele.eCommerce.dto.cart.AddToCartDto;
 import com.lele.eCommerce.dto.cart.CartDto;
+import com.lele.eCommerce.dto.cart.CartItemDto;
+import com.lele.eCommerce.exceptions.CustomException;
 import com.lele.eCommerce.model.Cart;
 import com.lele.eCommerce.model.Product;
 import com.lele.eCommerce.model.User;
@@ -9,8 +11,10 @@ import com.lele.eCommerce.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -41,11 +45,36 @@ public class CartService {
         List<Cart> cartList = cartRepository.findAllByUserOrderByCreatedDateDesc(user);
 
         List<CartItemDto> cartItems = new ArrayList<>();
-        double totalCost = 0;c 
+        double totalCost = 0;
+        for (Cart cart: cartList) {
+            CartItemDto cartItemDto = new CartItemDto(cart);
+            totalCost += cartItemDto.getQuantity() * cart.getProduct().getPrice();
+            cartItems.add(cartItemDto);
+        }
 
         CartDto cartDto = new CartDto();
         cartDto.setTotalCost(totalCost);
         cartDto.setCartItems(cartItems);
         return  cartDto;
+    }
+
+    public void deleteCartItem(Integer cartItemId, User user) {
+        // the item id belongs to user
+
+        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+
+        if (optionalCart.isEmpty()) {
+            throw new CustomException("cart item id is invalid: " + cartItemId);
+        }
+
+        Cart cart = optionalCart.get();
+
+        if (cart.getUser() != user) {
+            throw  new CustomException("cart item does not belong to user: " +cartItemId);
+        }
+
+        cartRepository.delete(cart);
+
+
     }
 }
